@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <iostream>
 #include "interfaces/ICommLink.hpp"
 #include "interfaces/IGoal.hpp"
 #include "interfaces/IOffboardApi.hpp"
@@ -47,8 +48,10 @@ public:
                 (clock_->millis() - goal_timestamp_ > params_->api_goal_timeout)) {
                 if (!is_api_timedout_) {
                     comm_link_->log("API call was not received, entering hover mode for safety");
+                    
                     goal_mode_ = GoalMode::getPositionMode();
                     goal_ = Axis4r::xyzToAxis4(state_estimator_->getPosition(), true);
+                    std::cout << "Log " << state_estimator_->getPosition().toString() << std::endl;
                     is_api_timedout_ = true;
                 }
 
