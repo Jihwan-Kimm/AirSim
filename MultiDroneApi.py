@@ -6,67 +6,66 @@ import pprint
 import tempfile
 import time
 
+# Connect to the AirSim simulator
 client = airsim.MultirotorClient()
 client.confirmConnection()
-drone_names = ["Drone" + str(i) for i in range(100)]
 
-for drone in drone_names:
+# Start control
+drone_total = ["Drone" + str(i) for i in range(42)]
+drone_R = [["Drone" + str(i) for i in range(9)], [30,30,30,30,30,30,30,30,30]]
+drone_U = [["Drone" + str(i) for i in range(9, 16)], [30,30,30,-30,-30,-30,-30]]
+drone_B = [["Drone" + str(i) for i in range(16, 25)], [-30,-30,-30,-30,-30,-30,-30, 30,30]]
+drone_I = [["Drone" + str(i) for i in range(25, 33)], [30,30,30,30,30,30,30,30]]
+drone_S = [["Drone" + str(i) for i in range(33, 42)], [-30,-30,-30,-30,-30,-30,-30,-30,-30]]
+
+for drone in drone_total:
     client.enableApiControl(True, drone)
-for drone in drone_names:
+for drone in drone_total:
     client.armDisarm(True, drone)
 
-takeoff_start_time = time.time()
+# Takeoff command must be given before the flight command
 
-takeoff_tasks = [client.takeoffAsync(vehicle_name=drone) for drone in drone_names]
+takeoff_tasks = [client.takeoffAsync(vehicle_name=drone) for drone in drone_total]
 for task in takeoff_tasks:
     task.join()
 
+airsim.wait_key('Press any key to move vehicles')
+print(time.time())
 
-takeoff_end_time = time.time()
-takeoff_duration = takeoff_end_time - takeoff_start_time 
-print(f"Takeoff time: {takeoff_duration} seconds")
-
-
-for i in range(5):
-    print("Lap "+str(i))   
-
-    # airsim.wait_key('Press any key to move vehicles')
-    move1_start = time.time() 
-    move_tasks = [client.moveToPositionAsync(0, 0, -int(drone[-1])-5, 5, vehicle_name=drone) for drone in drone_names]
-    for task in move_tasks:
-        task.join()
-
-    move1_end = time.time() 
-    move_duration = move1_end - move1_start
-    print(f"Movement time: {move_duration} seconds")
-
-
-    # airsim.wait_key('Press any key to move vehicles again')
-    move2_start = time.time() 
-    move_tasks = [client.moveToPositionAsync(5, 5, -10, 3, vehicle_name=drone) for drone in drone_names]
-    for task in move_tasks:
-        task.join()
-
-    move2_end = time.time() 
-    move_duration = move2_end - move2_start
-    print(f"Movement time: {move_duration} seconds")
+# Flight control command
+move_tasks = [client.moveToPositionAsync(0, drone_R[1][i]/3, -5, 5, vehicle_name=drone_R[0][i]) for i in range(len(drone_R[0]))]
+# for task in move_tasks:
+# 	  task.join()
+# time.sleep(1)
+move_tasks = [client.moveToPositionAsync(0, drone_U[1][i]/3, -5, 5, vehicle_name=drone_U[0][i]) for i in range(len(drone_U[0]))]
+# for task in move_tasks:
+# 	  task.join()
+# time.sleep(1)
+move_tasks = [client.moveToPositionAsync(0, drone_B[1][i]/3, -5, 5, vehicle_name=drone_B[0][i]) for i in range(len(drone_B[0]))]
+# for task in move_tasks:
+# 	  task.join()
+# time.sleep(1)
+move_tasks = [client.moveToPositionAsync(0, drone_I[1][i]/3, -5, 5, vehicle_name=drone_I[0][i]) for i in range(len(drone_I[0]))]
+# for task in move_tasks:
+# 	  task.join()
+# time.sleep(1)
+move_tasks = [client.moveToPositionAsync(0, drone_S[1][i]/3, -5, 5, vehicle_name=drone_S[0][i]) for i in range(len(drone_S[0]))]
 
 
-    # airsim.wait_key('Press any key to move vehicles again again')
-    move3_start = time.time() 
-    move_tasks = [client.moveToPositionAsync(0, 0, -10, 3, vehicle_name=drone) for drone in drone_names]
-    for task in move_tasks:
-        task.join()
+move_tasks = [client.moveToPositionAsync(0, 2*drone_R[1][i]/3, 2.5, 5, vehicle_name=drone_R[0][i]) for i in range(len(drone_R[0]))]
+time.sleep(0.5)
+move_tasks = [client.moveToPositionAsync(0, 2*drone_U[1][i]/3, 2.5, 5, vehicle_name=drone_U[0][i]) for i in range(len(drone_U[0]))]
+time.sleep(0.5)
+move_tasks = [client.moveToPositionAsync(0, 2*drone_B[1][i]/3, 2.5, 5, vehicle_name=drone_B[0][i]) for i in range(len(drone_B[0]))]
+time.sleep(0.5)
+move_tasks = [client.moveToPositionAsync(0, 2*drone_I[1][i]/3, 2.5, 5, vehicle_name=drone_I[0][i]) for i in range(len(drone_I[0]))]
+time.sleep(0.5)
+move_tasks = [client.moveToPositionAsync(0, 2*drone_S[1][i]/3, 2.5, 5, vehicle_name=drone_S[0][i]) for i in range(len(drone_S[0]))]
 
-    move3_end = time.time()  
-    move_duration = move3_end - move3_start
-    print(f"Movement time: {move_duration} seconds")
-
-
-
-
-for drone in drone_names:
+# Finish control
+airsim.wait_key('Press any key to finish')
+for drone in drone_total:
     client.armDisarm(False, drone)
 client.reset()
-for drone in drone_names:
+for drone in drone_total:
     client.enableApiControl(False, drone)
