@@ -29,8 +29,6 @@ takeoff_tasks = [client.takeoffAsync(vehicle_name=drone) for drone in drone_tota
 for task in takeoff_tasks:
     task.join()
 
-airsim.wait_key('Press any key to move vehicles')
-print(time.time())
 
 # Flight control command
 move_tasks = [client.moveToPositionAsync(0, drone_R[1][i]/3, -5, 5, vehicle_name=drone_R[0][i]) for i in range(len(drone_R[0]))]
