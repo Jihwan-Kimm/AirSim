@@ -301,7 +301,7 @@ namespace airlib
         else {
             //if auto mode requested for lookahead then calculate based on velocity
             lookahead = getAutoLookahead(velocity, adaptive_lookahead);
-            Utils::log(Utils::stringf("lookahead = %f, adaptive_lookahead = %f", lookahead, adaptive_lookahead));
+            //Utils::log(Utils::stringf("lookahead = %f, adaptive_lookahead = %f", lookahead, adaptive_lookahead));
         }
 
         //add current position as starting point
@@ -348,9 +348,6 @@ namespace airlib
         float goal_dist = 0;
 
         //until we are at the end of the path (last seg is always zero size)
-        time_t ltime;
-        time(&ltime);
-        Utils::log(Utils::stringf("time =  %li",  ltime));
         while (!waiter.isTimeout() && (next_path_loc.seg_index < path_segs.size() - 1 || goal_dist > 0)) { //current position is approximately at the last end point
 
             float seg_velocity = path_segs.at(next_path_loc.seg_index).seg_velocity;

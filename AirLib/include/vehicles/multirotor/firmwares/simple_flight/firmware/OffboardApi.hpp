@@ -51,7 +51,6 @@ public:
                     
                     goal_mode_ = GoalMode::getPositionMode();
                     goal_ = Axis4r::xyzToAxis4(state_estimator_->getPosition(), true);
-                    std::cout << "Log " << state_estimator_->getPosition().toString() << std::endl;
                     is_api_timedout_ = true;
                 }
 

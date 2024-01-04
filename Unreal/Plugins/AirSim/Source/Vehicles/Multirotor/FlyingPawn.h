@@ -39,8 +39,10 @@ public:
 
 private: //variables
     //Unreal components
-    UPROPERTY()
-    APIPCamera* camera_front_center_;
+    
+
+    // UPROPERTY()
+    // APIPCamera* camera_front_center_;
 
     UPROPERTY()
     TArray<URotatingMovementComponent*> rotating_movements_;

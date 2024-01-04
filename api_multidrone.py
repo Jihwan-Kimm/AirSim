@@ -17,18 +17,38 @@ for drone in drone_names:
 for drone in drone_names:
     client.armDisarm(True, drone)
 
-for i in range(1):
-    # Takeoff command must be given before the flight command
-    # airsim.wait_key('Press any key to takeoff')
-    takeoff_tasks = [client.takeoffAsync(vehicle_name=drone) for drone in drone_names]
-    for task in takeoff_tasks:
+# Takeoff command must be given before the flight command
+# airsim.wait_key('Press any key to takeoff')
+takeoff_tasks = [client.takeoffAsync(vehicle_name=drone) for drone in drone_names]
+for task in takeoff_tasks:
+    task.join()
+
+time.sleep(1)
+
+for i in range(100):
+    # Flight control command
+    # airsim.wait_key('Press any key to move vehicles')
+    move_tasks = [client.moveToPositionAsync(0, 0, -int(drone[-1])-10, 5, vehicle_name=drone) for drone in drone_names]
+    for task in move_tasks:
         task.join()
+
+    time.sleep(1)
 
     # Flight control command
     # airsim.wait_key('Press any key to move vehicles')
-    move_tasks = [client.moveToPositionAsync(0, 0, -int(drone[-1])-5, 5, vehicle_name=drone) for drone in drone_names]
+    move_tasks = [client.moveToPositionAsync(0, 0, -25, 5, vehicle_name=drone) for drone in drone_names]
     for task in move_tasks:
         task.join()
+
+    time.sleep(1)
+
+    # Flight control command
+    # airsim.wait_key('Press any key to move vehicles')
+    move_tasks = [client.moveToPositionAsync(0, 0, -5, 5, vehicle_name=drone) for drone in drone_names]
+    for task in move_tasks:
+        task.join()
+
+    time.sleep(1)
 
 time.sleep(5)
 

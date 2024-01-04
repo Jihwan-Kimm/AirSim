@@ -6,8 +6,8 @@
 
 AFlyingPawn::AFlyingPawn()
 {
-    init_id_ = pawn_events_.getActuatorSignal().connect_member(this, &AFlyingPawn::initializeRotors);
-    pawn_events_.getActuatorSignal().connect_member(this, &AFlyingPawn::setRotorSpeed);
+    // init_id_ = pawn_events_.getActuatorSignal().connect_member(this, &AFlyingPawn::initializeRotors);
+    //pawn_events_.getActuatorSignal().connect_member(this, &AFlyingPawn::setRotorSpeed);
 }
 
 void AFlyingPawn::BeginPlay()
@@ -18,8 +18,10 @@ void AFlyingPawn::BeginPlay()
 void AFlyingPawn::initializeForBeginPlay()
 {
     //get references of existing camera
-    camera_front_center_ = Cast<APIPCamera>(
-        (UAirBlueprintLib::GetActorComponent<UChildActorComponent>(this, TEXT("FrontCenterCamera")))->GetChildActor());
+    //camera delete
+
+    // camera_front_center_ = Cast<APIPCamera>(
+    //     (UAirBlueprintLib::GetActorComponent<UChildActorComponent>(this, TEXT("FrontCenterCamera")))->GetChildActor());
 }
 
 void AFlyingPawn::Tick(float DeltaSeconds)
@@ -30,10 +32,10 @@ void AFlyingPawn::Tick(float DeltaSeconds)
 
 void AFlyingPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-    camera_front_center_ = nullptr;
+    // camera_front_center_ = nullptr;
 
     pawn_events_.getActuatorSignal().disconnect_all();
-    rotating_movements_.Empty();
+    // rotating_movements_.Empty();
 
     Super::EndPlay(EndPlayReason);
 }
@@ -41,12 +43,12 @@ void AFlyingPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 const common_utils::UniqueValueMap<std::string, APIPCamera*> AFlyingPawn::getCameras() const
 {
     common_utils::UniqueValueMap<std::string, APIPCamera*> cameras;
-    cameras.insert_or_assign("front_center", camera_front_center_);
+    // cameras.insert_or_assign("front_center", camera_front_center_);
 
-    cameras.insert_or_assign("0", camera_front_center_);
+    // cameras.insert_or_assign("0", camera_front_center_);
 
-    cameras.insert_or_assign("", camera_front_center_);
-    cameras.insert_or_assign("fpv", camera_front_center_);
+    // cameras.insert_or_assign("", camera_front_center_);
+    // cameras.insert_or_assign("fpv", camera_front_center_);
 
     return cameras;
 }
@@ -71,8 +73,8 @@ void AFlyingPawn::setRotorSpeed(const std::vector<MultirotorPawnEvents::RotorAct
 
 void AFlyingPawn::initializeRotors(const std::vector<MultirotorPawnEvents::RotorActuatorInfo>& rotor_infos)
 {
-    for (auto i = 0; i < rotor_infos.size(); ++i) {
-        rotating_movements_.Add(UAirBlueprintLib::GetActorComponent<URotatingMovementComponent>(this, TEXT("Rotation") + FString::FromInt(i)));
-    }
+    // for (auto i = 0; i < rotor_infos.size(); ++i) {
+    //     rotating_movements_.Add(UAirBlueprintLib::GetActorComponent<URotatingMovementComponent>(this, TEXT("Rotation") + FString::FromInt(i)));
+    // }
     pawn_events_.getActuatorSignal().disconnect(init_id_);
 }

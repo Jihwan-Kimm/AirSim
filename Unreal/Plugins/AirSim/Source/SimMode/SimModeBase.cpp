@@ -355,7 +355,7 @@ void ASimModeBase::Tick(float DeltaSeconds)
 
     // updateDebugReport(debug_reporter_);
 
-    drawLidarDebugPoints();
+    // drawLidarDebugPoints();
 
     // drawDistanceSensorDebugPoints();
 
