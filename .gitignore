@@ -366,17 +366,18 @@ xcuserdata/
 *.sublime-project
 
 # Unity
-/Unity/UnityDemo/Assembly-CSharp.csproj
-/Unity/UnityDemo/UnityDemo.sln
-/Unity/linux-build
-/Unity/UnityDemo/Assets/Plugins/
-/Unity/UnityDemo/[Ll]ibrary/
-/Unity/UnityDemo/[Tt]emp/
-/Unity/UnityDemo/[Oo]bj/
-/Unity/UnityDemo/[Bb]uild/
-/Unity/UnityDemo/[Bb]uilds/
-/Unity/UnityDemo/[Ll]ogs/
-/Unity/UnityDemo/[Uu]ser[Ss]ettings/
+/Unity/
+# /Unity/UnityDemo/Assembly-CSharp.csproj
+# /Unity/UnityDemo/UnityDemo.sln
+# /Unity/linux-build
+# /Unity/UnityDemo/Assets/Plugins/
+# /Unity/UnityDemo/[Ll]ibrary/
+# /Unity/UnityDemo/[Tt]emp/
+# /Unity/UnityDemo/[Oo]bj/
+# /Unity/UnityDemo/[Bb]uild/
+# /Unity/UnityDemo/[Bb]uilds/
+# /Unity/UnityDemo/[Ll]ogs/
+# /Unity/UnityDemo/[Uu]ser[Ss]ettings/
 
 # ROS
 ros/.catkin_tools/
