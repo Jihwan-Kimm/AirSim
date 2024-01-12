@@ -51,13 +51,13 @@ move_tasks = [client.moveToPositionAsync(0, drone_S[1][i]/3, -5, 5, vehicle_name
 
 
 move_tasks = [client.moveToPositionAsync(0, 2*drone_R[1][i]/3, 2.5, 5, vehicle_name=drone_R[0][i]) for i in range(len(drone_R[0]))]
-time.sleep(0.5)
+
 move_tasks = [client.moveToPositionAsync(0, 2*drone_U[1][i]/3, 2.5, 5, vehicle_name=drone_U[0][i]) for i in range(len(drone_U[0]))]
-time.sleep(0.5)
+
 move_tasks = [client.moveToPositionAsync(0, 2*drone_B[1][i]/3, 2.5, 5, vehicle_name=drone_B[0][i]) for i in range(len(drone_B[0]))]
-time.sleep(0.5)
+
 move_tasks = [client.moveToPositionAsync(0, 2*drone_I[1][i]/3, 2.5, 5, vehicle_name=drone_I[0][i]) for i in range(len(drone_I[0]))]
-time.sleep(0.5)
+
 move_tasks = [client.moveToPositionAsync(0, 2*drone_S[1][i]/3, 2.5, 5, vehicle_name=drone_S[0][i]) for i in range(len(drone_S[0]))]
 
 # Finish control
